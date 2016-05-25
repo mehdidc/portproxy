@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
-    
+import socket
+
 from flask import Flask
 from flask import Response
 from flask import stream_with_context
-
-import requests
+from flask import redirect
 
 app = Flask(__name__)
 
 ports = {
-'annot': 24000,
-'img_server': 24001,
-'arxiv': 22000, 
-'blog': 8080,
-'ipynb': 8081,
-'ipynb_remeo': 21001
+    'annot': '{host}:20000',
+    'arxiv': '{host}:20001', 
+    'ipynb_remeo': '{host}:21002',
+    'img_server' : '{host}:5001',
+    'ipynb': '{host}:8081',
 }
+
+def get_hostname():
+    hostname = socket.gethostname()
+    return hostname
 
 def url_mapping(url):
     url_sp = url.split('/')
@@ -24,7 +27,8 @@ def url_mapping(url):
     else:
         return url
     rest = '/'.join(url_sp[1:])
-    url = 'http://localhost:{}/{}'.format(port, rest)
+    host = get_hostname()
+    url = 'http://{}/{}'.format(port, rest).format(host=host)
     return url
 
 @app.route('/favicon.ico')
@@ -36,8 +40,7 @@ def home(url):
     url_orig = url
     url = url_mapping(url)
     print('Given url : {}, Transformed url : {}'.format(url_orig, url))
-    req = requests.get(url, stream = True)
-    return Response(stream_with_context(req.iter_content()), content_type = req.headers['content-type'])
+    return redirect(url, code=302)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
