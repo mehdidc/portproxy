@@ -11,7 +11,7 @@ app = Flask(__name__)
 ports = {
     'annot': '{host}:20000',
     'arxiv': '{host}:20001', 
-    'ipynb_remeo': '{host}:21002',
+    'ipynb_romeo': '{host}:20002',
     'img_server' : '{host}:5001',
     'ipynb': '{host}:8081',
 }
