@@ -14,6 +14,8 @@ ports = {
     'ipynb_romeo': '{host}:20002',
     'img_server' : '{host}:5001',
     'ipynb': '{host}:8081',
+    'pybossa': '{host}:21001',
+    'emma': '{host}:8095'
 }
 
 def get_hostname():
