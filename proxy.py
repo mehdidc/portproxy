@@ -15,7 +15,8 @@ ports = {
     'img_server' : '{host}:5001',
     'ipynb': '{host}:8081',
     'pybossa': '{host}:21001',
-    'emma': '{host}:8095'
+    'emma': '{host}:8095',
+    'blog': '{host}:20003'
 }
 
 def get_hostname():
@@ -45,4 +46,4 @@ def home(url):
     return redirect(url, code=302)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
+    app.run(host='0.0.0.0', port=23000, debug=True)
